@@ -51,7 +51,6 @@ services:
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
-    plan: free
     envVars:
       - key: VITE_API_BASE
         value: https://hms-backend.onrender.com

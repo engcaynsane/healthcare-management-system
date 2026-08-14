@@ -706,7 +706,17 @@ table.table {
   display: none;
 }
 
+.menu-toggle {
+  display: none;
+}
+
 @media (max-width: 768px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+  .user-name {
+    display: none;
+  }
   .sidebar {
     transform: translateX(-100%);
   }
@@ -719,7 +729,36 @@ table.table {
   .main {
     margin-left: 0;
   }
+  .topbar {
+    padding: 0 12px;
+    gap: 10px;
+  }
+  .topbar .menu-pop {
+    max-width: calc(100vw - 24px);
+  }
+  .content {
+    padding: 14px;
+  }
+  .content > h1 {
+    font-size: 17px !important;
+  }
   .form-grid {
     grid-template-columns: 1fr;
+  }
+  .btn {
+    white-space: nowrap;
+  }
+  .toolbar {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-pop {
+    min-width: 0;
+    width: calc(100vw - 24px) !important;
+  }
+  .profile-name-hide {
+    display: none;
   }
 }

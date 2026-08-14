@@ -58,7 +58,7 @@ export function Topbar({ onMenu }: { onMenu: () => void }) {
 
   return (
     <header className="topbar">
-      <button className="btn btn-ghost btn-icon" onClick={onMenu} style={{ display: "none" }} aria-label="Menu">
+      <button className="btn btn-ghost btn-icon menu-toggle" onClick={onMenu} aria-label="Menu">
         <Icon name="menu" />
       </button>
 
@@ -125,7 +125,7 @@ export function Topbar({ onMenu }: { onMenu: () => void }) {
       <div className="menu" style={{ position: "relative" }}>
         <button className="btn btn-ghost" onClick={() => setProfileOpen((v) => !v)} style={{ gap: 8, fontWeight: 600 }}>
           <span className="avatar">{initials(user?.fullName)}</span>
-          <span>{user?.fullName}</span>
+          <span className="user-name">{user?.fullName}</span>
         </button>
         {profileOpen && (
           <div className="menu-pop">

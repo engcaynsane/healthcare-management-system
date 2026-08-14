@@ -40,9 +40,9 @@ services:
         fromDatabase:
           name: hms-db
           property: password
-      # Change to the real frontend URL after first deploy if the service name differs.
+      # Real frontend URL (hms-frontend name was taken, so it got a -rlwl suffix).
       - key: CORS_ORIGINS
-        value: https://hms-frontend.onrender.com
+        value: https://hms-frontend-rlwl.onrender.com
 
   # ---------- Frontend (React / Vite static site) ----------
   - type: web

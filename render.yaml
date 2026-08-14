@@ -1,0 +1,67 @@
+# Render Blueprint - healthcare management system
+# Deploy: push this repo to GitHub, then in Render dashboard choose
+# "New +" > "Blueprint" and connect the repo (render.yaml is auto-detected).
+# NOTE: update `repo:` to your real GitHub URL if you want one-click deploy,
+# or leave it out and connect the repo via the dashboard.
+
+services:
+  # ---------- Backend (Spring Boot, Docker) ----------
+  - type: web
+    name: hms-backend
+    runtime: docker
+    repo: https://github.com/YOUR_GITHUB_USERNAME/healthcare-management-system.git
+    dockerfilePath: backend/Dockerfile
+    plan: free
+    region: oregon
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: PORT
+        value: 8080
+      - key: JWT_SECRET
+        generateValue: true
+      - key: DB_HOST
+        fromDatabase:
+          name: hms-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: hms-db
+          property: port
+      - key: DB_DATABASE
+        fromDatabase:
+          name: hms-db
+          property: database
+      - key: DB_USERNAME
+        fromDatabase:
+          name: hms-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: hms-db
+          property: password
+      # Change to the real frontend URL after first deploy if the service name differs.
+      - key: CORS_ORIGINS
+        value: https://hms-frontend.onrender.com
+
+  # ---------- Frontend (React / Vite static site) ----------
+  - type: web
+    name: hms-frontend
+    runtime: static
+    repo: https://github.com/YOUR_GITHUB_USERNAME/healthcare-management-system.git
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    plan: free
+    region: oregon
+    envVars:
+      - key: VITE_API_BASE
+        value: https://hms-backend.onrender.com
+
+# ---------- PostgreSQL database ----------
+databases:
+  - name: hms-db
+    plan: free
+    databaseName: hms
+    user: hms

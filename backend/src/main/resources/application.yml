@@ -1,0 +1,77 @@
+spring:
+  application:
+    name: healthcare-management-backend
+  profiles:
+    active: dev
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  # Render injects PORT; falls back to 8080 locally.
+  port: ${PORT:8080}
+  error:
+    include-message: always
+
+app:
+  jwt:
+    # Secret must be >= 32 bytes. Override via JWT_SECRET env in production.
+    secret: ${JWT_SECRET:change-this-secret-to-a-random-256-bit-value-in-production-!!!}
+    access-token-minutes: 120
+    refresh-token-days: 7
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173,http://localhost:3000}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:hms;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  flyway:
+    enabled: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_DATABASE:hms}}
+    username: ${DB_USERNAME:hms}
+    password: ${DB_PASSWORD:hms}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: update
+  flyway:
+    enabled: false
+  h2:
+    console:
+      enabled: false

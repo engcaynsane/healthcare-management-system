@@ -127,6 +127,18 @@ h4 {
   font-size: 15px;
 }
 
+.sidebar-close {
+  display: none;
+  margin-left: auto;
+  color: #cbd5e1;
+  border-color: transparent;
+}
+
+.sidebar-close:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+}
+
 .sidebar-nav {
   flex: 1;
   overflow-y: auto;
@@ -712,6 +724,9 @@ table.table {
 
 @media (max-width: 768px) {
   .menu-toggle {
+    display: inline-flex;
+  }
+  .sidebar-close {
     display: inline-flex;
   }
   .user-name {

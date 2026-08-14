@@ -56,11 +56,14 @@ export function Sidebar({ open, onClose }: { open: boolean; onClose: () => void 
 
   return (
     <>
-      <div className={open ? "sidebar-backdrop" : "sidebar-backdrop"} onClick={onClose} />
+      {open && <div className="sidebar-backdrop" onClick={onClose} />}
       <aside className={`sidebar ${open ? "open" : ""}`}>
         <div className="sidebar-brand">
           <div className="logo">H</div>
           <div className="brand-text">HMS Clinic</div>
+          <button className="btn btn-ghost btn-icon sidebar-close" onClick={onClose} aria-label="Close menu">
+            <Icon name="x" />
+          </button>
         </div>
         <nav className="sidebar-nav">
           {sections.map((section) => (

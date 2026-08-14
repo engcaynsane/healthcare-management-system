@@ -9,6 +9,7 @@ services:
     runtime: docker
     repo: https://github.com/engcaynsane/healthcare-management-system.git
     dockerfilePath: backend/Dockerfile
+    dockerContext: backend
     plan: free
     region: oregon
     healthCheckPath: /actuator/health

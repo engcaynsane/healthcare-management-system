@@ -54,7 +54,7 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_BASE
-        value: https://hms-backend.onrender.com
+        value: https://hms-backend-7kty.onrender.com
 
 # ---------- PostgreSQL database ----------
 databases:
